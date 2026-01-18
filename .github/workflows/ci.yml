@@ -35,6 +35,14 @@ jobs:
         run: |
           mypy src --ignore-missing-imports
 
+      - name: Run security check with bandit
+        run: |
+          bandit -r src -c pyproject.toml
+
+      - name: Run dead code check with vulture
+        run: |
+          vulture src --min-confidence 80
+
       - name: Run tests with pytest
         run: |
           pytest tests -v --tb=short

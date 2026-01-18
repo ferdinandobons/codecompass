@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
-from contexto.parser import CodeEntity, PythonParser
+from contexto.parser import PythonParser
 
 
 @dataclass

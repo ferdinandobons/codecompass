@@ -1,7 +1,5 @@
 """Tests for the code graph."""
 
-import pytest
-
 from contexto.graph import CodeGraph, GraphNode
 
 
@@ -131,11 +129,6 @@ class TestCodeGraph:
         """Test that adding an existing file updates it."""
         graph = CodeGraph(sample_project)
         graph.build()
-
-        # Get initial function count in main.py
-        main_functions = [n for n in graph.nodes.values()
-                         if n.file_path == "src/main.py" and n.type == "function"]
-        initial_count = len(main_functions)
 
         # Update main.py with new content
         main_py = sample_project / "src" / "main.py"

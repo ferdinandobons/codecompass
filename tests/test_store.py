@@ -1,7 +1,5 @@
 """Tests for the SQLite store."""
 
-import pytest
-
 from contexto.graph import CodeGraph, GraphNode
 from contexto.store import Store
 

@@ -1,7 +1,6 @@
 """Tests for the JSON output formatter."""
 
 import json
-import pytest
 
 from contexto.graph import GraphNode
 from contexto.output import JsonFormatter, _node_to_dict

@@ -116,9 +116,9 @@ class Store:
 
     def __exit__(
         self,
-        exc_type: Optional[type[BaseException]],
-        exc_val: Optional[BaseException],
-        exc_tb: Optional[TracebackType],
+        _exc_type: Optional[type[BaseException]],
+        _exc_val: Optional[BaseException],
+        _exc_tb: Optional[TracebackType],
     ) -> None:
         """Exit context manager, ensuring connection is closed."""
         self.close()

@@ -1,7 +1,6 @@
 """Tests for the CLI commands."""
 
 import json
-import pytest
 from typer.testing import CliRunner
 
 from contexto.cli import app

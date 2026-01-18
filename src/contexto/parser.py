@@ -169,8 +169,9 @@ class PythonParser:
         # Keyword-only args
         for i, arg in enumerate(args_node.kwonlyargs):
             arg_str = self._format_arg(arg)
-            if i < len(args_node.kw_defaults) and args_node.kw_defaults[i] is not None:
-                arg_str += f"={ast.unparse(args_node.kw_defaults[i])}"
+            kw_default = args_node.kw_defaults[i] if i < len(args_node.kw_defaults) else None
+            if kw_default is not None:
+                arg_str += f"={ast.unparse(kw_default)}"
             parts.append(arg_str)
 
         # **kwargs

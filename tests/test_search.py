@@ -1,7 +1,5 @@
 """Tests for the search engine."""
 
-import pytest
-
 from contexto.graph import CodeGraph
 from contexto.store import Store
 from contexto.search import SearchEngine
@@ -214,8 +212,8 @@ class TestSearchResultCaching:
         with Store(db_path) as store:
             engine = SearchEngine(store)
 
-            results1 = engine.search("Calculator", limit=5)
-            results2 = engine.search("Calculator", limit=10)
+            engine.search("Calculator", limit=5)
+            engine.search("Calculator", limit=10)
 
             # Different limits should have different cache entries
             assert len(engine._result_cache) == 2

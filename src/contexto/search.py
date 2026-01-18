@@ -94,10 +94,10 @@ class SearchEngine:
 
         # Batch insert TF values
         tf_data = []
-        for node_id, terms in node_terms.items():
-            max_tf = max(terms.values()) if terms else 1
+        for node_id, term_counts in node_terms.items():
+            max_tf = max(term_counts.values()) if term_counts else 1
 
-            for term, count in terms.items():
+            for term, count in term_counts.items():
                 # Normalized TF
                 tf = count / max_tf
                 tf_data.append((node_id, term, tf))
@@ -193,10 +193,10 @@ class SearchEngine:
 
         # Insert TF values for new/updated nodes
         tf_data = []
-        for node_id, terms in node_terms.items():
-            max_tf = max(terms.values()) if terms else 1
+        for node_id, term_counts in node_terms.items():
+            max_tf = max(term_counts.values()) if term_counts else 1
 
-            for term, count in terms.items():
+            for term, count in term_counts.items():
                 tf = count / max_tf
                 tf_data.append((node_id, term, tf))
 

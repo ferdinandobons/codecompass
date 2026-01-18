@@ -1,11 +1,6 @@
 """Tests for the AST parser."""
 
-import tempfile
-from pathlib import Path
-
-import pytest
-
-from contexto.parser import PythonParser, CodeEntity
+from contexto.parser import PythonParser
 
 
 class TestPythonParser:
