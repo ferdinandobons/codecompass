@@ -90,3 +90,6 @@ dmypy.json
 
 # Test project (for development)
 test-project/
+
+# Other
+CLAUDE.md
