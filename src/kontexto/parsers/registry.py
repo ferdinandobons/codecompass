@@ -37,6 +37,10 @@ class ParserRegistry:
         from kontexto.parsers.go_parser import GoParser
         from kontexto.parsers.rust_parser import RustParser
         from kontexto.parsers.java_parser import JavaParser
+        from kontexto.parsers.c_cpp_parser import CCppParser
+        from kontexto.parsers.csharp_parser import CSharpParser
+        from kontexto.parsers.php_parser import PHPParser
+        from kontexto.parsers.ruby_parser import RubyParser
 
         parsers = [
             PythonParser(),
@@ -44,6 +48,10 @@ class ParserRegistry:
             GoParser(),
             RustParser(),
             JavaParser(),
+            CCppParser(),
+            CSharpParser(),
+            PHPParser(),
+            RubyParser(),
         ]
 
         for parser in parsers:

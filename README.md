@@ -19,6 +19,10 @@ A CLI tool to explore codebases efficiently. Designed for LLMs and coding agents
 | Go | `.go` | functions, methods, structs, interfaces |
 | Rust | `.rs` | functions, structs, enums, traits, impl blocks, methods |
 | Java | `.java` | classes, interfaces, enums, methods, constructors |
+| C/C++ | `.c`, `.h`, `.cpp`, `.hpp`, `.cc` | functions, structs, enums, classes, methods, typedefs |
+| C# | `.cs` | classes, interfaces, structs, enums, methods, constructors, properties |
+| PHP | `.php` | functions, classes, interfaces, traits, methods, enums |
+| Ruby | `.rb`, `.rake` | classes, modules, methods, singleton methods |
 
 All parsers use [tree-sitter](https://tree-sitter.github.io/) for fast, accurate AST-based parsing.
 

@@ -1,7 +1,7 @@
 [project]
 name = "kontexto"
-version = "0.1.0"
-description = "A navigable graph of your codebase for LLMs. Supports Python, JavaScript/TypeScript, Go, Rust, and Java."
+version = "0.2.0"
+description = "A navigable graph of your codebase for LLMs. Supports Python, JavaScript/TypeScript, Go, Rust, Java, C/C++, C#, PHP, and Ruby."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
@@ -28,6 +28,11 @@ dependencies = [
     "tree-sitter-go>=0.23.0",
     "tree-sitter-rust>=0.23.0",
     "tree-sitter-java>=0.23.0",
+    "tree-sitter-c>=0.23.0",
+    "tree-sitter-cpp>=0.23.0",
+    "tree-sitter-c-sharp>=0.23.0",
+    "tree-sitter-php>=0.23.0",
+    "tree-sitter-ruby>=0.23.0",
 ]
 
 [project.urls]
