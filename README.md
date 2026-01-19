@@ -5,50 +5,58 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ferdinandobons/kontexto/pulls)
 
-A CLI tool to explore codebases efficiently. Designed for LLMs and coding agents as a smarter alternative to `ls`, `grep`, and `find`.
+> **Give your AI coding assistant a map of your codebase, not a blindfold.**
 
-**All output is JSON** for easy parsing by LLMs and programmatic consumption.
+LLMs and coding agents waste tokens and context window navigating code with `ls`, `grep`, and `find`—tools designed for humans, not machines. They return unstructured text, no relationships, no semantics.
 
-## 🌍 Supported Languages
+**Kontexto** parses your codebase into a navigable graph of classes, functions, and their relationships. One command returns what would take dozens of shell invocations.
 
-| Language | Extensions | Entities Extracted |
-|----------|------------|-------------------|
-| Python | `.py` | functions, classes, methods |
-| JavaScript | `.js`, `.jsx`, `.mjs` | functions, classes, methods, arrow functions |
-| TypeScript | `.ts`, `.tsx` | functions, classes, methods, interfaces, types |
-| Go | `.go` | functions, methods, structs, interfaces |
-| Rust | `.rs` | functions, structs, enums, traits, impl blocks, methods |
-| Java | `.java` | classes, interfaces, enums, methods, constructors |
-| C/C++ | `.c`, `.h`, `.cpp`, `.hpp`, `.cc` | functions, structs, enums, classes, methods, typedefs |
-| C# | `.cs` | classes, interfaces, structs, enums, methods, constructors, properties |
-| PHP | `.php` | functions, classes, interfaces, traits, methods, enums |
-| Ruby | `.rb`, `.rake` | classes, modules, methods, singleton methods |
+```bash
+# The old way: 5 commands, hundreds of lines of noise
+ls -la src/
+grep -r "authenticate" src/
+cat src/api/auth.py | head -100
+grep -r "class.*Controller" src/
+find . -name "*.py" -exec grep -l "BaseModel" {} \;
 
-All parsers use [tree-sitter](https://tree-sitter.github.io/) for fast, accurate AST-based parsing.
+# Kontexto: structured, semantic, ready for LLMs
+kontexto search "authenticate"    # → JSON with signatures, docstrings, call graph
+kontexto hierarchy BaseModel      # → all subclasses, instantly
+```
 
-## 📦 Installation
+## Why Kontexto?
+
+| | `ls` + `grep` + `find` | **Kontexto** |
+|---|---|---|
+| **Output** | Raw text, needs parsing | Structured JSON |
+| **Understands code?** | No—just text matching | Yes—classes, functions, methods |
+| **Relationships** | None | Calls, called-by, inheritance |
+| **Context efficiency** | Wastes tokens on noise | Minimal, semantic output |
+| **Cross-language** | Manual per language | 10 languages, one interface |
+
+## Installation
 
 ```bash
 pip install kontexto
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
-# 1. Index your project
+# 1. Index your project (builds the code graph)
 cd /path/to/your/project
 kontexto index
 
-# 2. Explore the codebase
-kontexto map                          # See project structure
-kontexto expand src/api               # Expand a directory
-kontexto search "authentication"      # Search for code
-kontexto inspect src/api:UserController   # Inspect entity details
-kontexto hierarchy BaseModel          # Find all subclasses
-kontexto read src/api/users.py 10 50  # Read specific lines
+# 2. Explore
+kontexto map                              # Project overview with stats
+kontexto expand src/api                   # Drill into a directory
+kontexto search "authentication"          # Semantic search
+kontexto inspect src/api:UserController   # Entity details + relationships
+kontexto hierarchy BaseModel              # Find all subclasses
+kontexto read src/api/users.py 10 50      # Read specific lines
 ```
 
-## 📖 Commands
+## Commands
 
 ### `kontexto index [path]`
 
@@ -229,39 +237,24 @@ $ kontexto read src/api/users.py 15 20
 
 Use line ranges from `expand` or `inspect` to read specific functions.
 
-## 🤖 Use with LLMs
+## Supported Languages
 
-Kontexto is designed for coding agents like Claude Code. Instead of using `ls`, `grep`, and `find`:
+All parsers use [tree-sitter](https://tree-sitter.github.io/) for accurate AST-based extraction.
 
-```bash
-# Before: multiple commands, unstructured output
-ls -la src/
-grep -r "authenticate" src/
-cat src/api/auth.py
+| Language | Extensions | Entities Extracted |
+|----------|------------|-------------------|
+| Python | `.py` | functions, classes, methods |
+| JavaScript | `.js`, `.jsx`, `.mjs` | functions, classes, methods, arrow functions |
+| TypeScript | `.ts`, `.tsx` | functions, classes, methods, interfaces, types |
+| Go | `.go` | functions, methods, structs, interfaces |
+| Rust | `.rs` | functions, structs, enums, traits, impl blocks, methods |
+| Java | `.java` | classes, interfaces, enums, methods, constructors |
+| C/C++ | `.c`, `.h`, `.cpp`, `.hpp`, `.cc` | functions, structs, enums, classes, methods, typedefs |
+| C# | `.cs` | classes, interfaces, structs, enums, methods, constructors, properties |
+| PHP | `.php` | functions, classes, interfaces, traits, methods, enums |
+| Ruby | `.rb`, `.rake` | classes, modules, methods, singleton methods |
 
-# After: JSON output, easy to parse
-kontexto map
-kontexto search "authenticate"
-kontexto expand src/api/auth.py
-```
-
-### ✨ Benefits for LLMs
-
-| Tool | Output | Structure | Relationships |
-|------|--------|-----------|---------------|
-| `ls` | File names only | None | None |
-| `grep` | Matching lines | None | None |
-| `find` | File paths | None | None |
-| **kontexto** | Structured JSON | Classes, functions, methods | Calls, called-by, inheritance |
-
-### Features
-
-- **JSON output** - All commands return structured JSON for easy parsing
-- **Class hierarchy** - Track inheritance with `base_classes` field and `hierarchy` command
-- **Search caching** - Repeated searches are cached for faster response
-- **Incremental indexing** - Only changed files are re-indexed, with incremental search index updates
-
-## ⚙️ How It Works
+## How It Works
 
 Kontexto uses tree-sitter to parse source files and builds a navigable graph:
 
@@ -312,7 +305,7 @@ The graph is stored in SQLite with:
               └───────────────┘
 ```
 
-## 🛠️ Development
+## Development
 
 ```bash
 # Install dev dependencies
@@ -325,6 +318,6 @@ pytest
 ruff check src/ tests/
 ```
 
-## 📄 License
+## License
 
 MIT
